@@ -154,7 +154,7 @@ converter.fromFile("./18weeks.txt",function(err,result){
     //console.log(writer.toString());
 
 
-  fs.writeFile(MY_M3U_FILE, writer.toString(), function(err) {
+  fs.writeFile(SOURCE_TARGET_LANGUAGE+ "_" + MY_M3U_FILE, writer.toString(), function(err) {
       if(err) {
           return console.log(err);
       }
