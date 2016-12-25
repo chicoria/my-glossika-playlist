@@ -11,8 +11,22 @@
   var fs = require('fs');
 
 
-var MY_M3U_FILE = "18-weeks.m3u";
-var SOURCE_TARGET_LANGUAGE = "ENDE";
+
+var SOURCE_LANGUAGE =  process.argv[2];
+console.log("source language:" + SOURCE_LANGUAGE);
+
+var TARGET_LANGUAGE =  process.argv[3];
+console.log("target language:" + TARGET_LANGUAGE);
+
+var scheduleFileSource =  process.argv[4] ;
+console.log("schedule file:" + scheduleFileSource);
+
+var SOURCE_LANGUAGE_TARGET_LANGUAGE = SOURCE_LANGUAGE + TARGET_LANGUAGE;
+
+var MY_M3U_FILE = scheduleFileSource + ".m3u";
+// var SOURCE_TARGET_LANGUAGE = "ENDE";
+
+
 var AUDIO_SOURCE_DIR = "";
 
 var GMS = "GMS";
@@ -55,8 +69,8 @@ converter.transform=function(json,row,index){
     for (var i = 0; i < arr.length; i++) {
       console.log(arr[i]);
 
-        let path = SOURCE_TARGET_LANGUAGE;
-        let fileName =   SOURCE_TARGET_LANGUAGE;
+        let path = SOURCE_LANGUAGE_TARGET_LANGUAGE ;
+        let fileName =   SOURCE_LANGUAGE_TARGET_LANGUAGE;
         let textToTrim = "";
         let fileNumberText = "";
 
@@ -141,7 +155,7 @@ converter.transform=function(json,row,index){
 
 };
 
-converter.fromFile("./18weeks.txt",function(err,result){
+converter.fromFile(scheduleFileSource,function(err,result){
   //all result rows will add a field 'rowIndex' indicating the row number of the csv data:
   /*
   [{
@@ -154,11 +168,11 @@ converter.fromFile("./18weeks.txt",function(err,result){
     //console.log(writer.toString());
 
 
-  fs.writeFile(SOURCE_TARGET_LANGUAGE+ "_" + MY_M3U_FILE, writer.toString(), function(err) {
+  fs.writeFile(SOURCE_LANGUAGE_TARGET_LANGUAGE+ "_" + MY_M3U_FILE, writer.toString(), function(err) {
       if(err) {
           return console.log(err);
       }
 
-      console.log("The file was saved!");
+      console.log("The file " + MY_M3U_FILE + " was saved!");
   });
 });
